@@ -96,3 +96,76 @@ imports:
     - { resource: 'common/' }
 ```
 
+### Using directories for parameters
+
+Parameters can be loaded as directories as well in the same fashion.
+
+Moreover, an interesting concept is to have a folder for core parameters,
+global to your application and local parameters, specific to each installation.
+
+For example:
+
+```
+└── app
+   ├── config
+   │  └── …
+   ├── parameters
+   │  └── common
+   │  │  └── core.yml
+   │  │  └── i18n.yml
+   │  ├── dist
+   │  │  └── mailer.yml
+   │  ├── local
+   │  │  └── .gitignore
+   │  └── config.yml
+   └── AppKernel.php
+```
+
+`app/parameters/local/*.yml` will be ignored and its content will be the files from
+`app/parameters/dist`, copied and modified accordingly.
+
+You can then modify your `config.yml`: 
+```yaml
+# app/config/config.yml
+imports:
+    - { resource: 'parameters/common/' }
+    - { resource: 'parameters/local/' }
+    - { resource: 'common/' }
+```
+
+### Using a composer script to generate configuration files
+
+To fill the missing files on each composer run, you can replace the native parameters
+builder by [wemakecustom/composer-script-utils](https://github.com/wemakecustom/composer-script-utils)
+and configure your `composer.json`, replacing `Incenteev\ParameterHandler\ScriptHandler`
+
+```json
+{
+    "require": {
+        # ...
+        "wemakecustom/directory-loader-bundle": "1.0.*@dev",
+        "wemakecustom/composer-script-utils": ">=0.3"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "WMC\\Composer\\Utils\\ConfigFile\\ConfigDir::updateDirs",
+            # remove this: "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+            # ...
+        ],
+        "post-update-cmd": [
+            "WMC\\Composer\\Utils\\ConfigFile\\ConfigDir::updateDirs",
+            # remove this: "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+            # ...
+        ]
+    },
+    "extra": {
+        "update-config-dirs": {
+            "app/config/parameters/dist": "app/config/parameters/local"
+        },
+        # # remove this: 
+        # "incenteev-parameters": {
+        #     "file": "app/config/parameters.yml"
+        # },
+    }
+}
+```
