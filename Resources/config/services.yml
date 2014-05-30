@@ -1,0 +1,8 @@
+services:
+    wmc.directory_loader.routing_loader:
+        class: WMC\DirectoryLoaderBundle\Loader\Routing\DirectoryFileLoader
+        arguments:
+            - @file_locator
+        # Handled via the InjectCompilerPass
+        # tags:
+            # - { name: routing.loader }
