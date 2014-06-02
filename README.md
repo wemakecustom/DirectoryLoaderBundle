@@ -170,6 +170,11 @@ and configure your `composer.json`, replacing `Incenteev\ParameterHandler\Script
 }
 ```
 
+### Full example
+
+You can see the final configuration tree here:
+https://github.com/wemakecustom/symfony-kickstart/tree/master/dist
+
 ## Word of caution
 
 [AsseticBundle](https://github.com/symfony/AsseticBundle) features a PHP directory loader
