@@ -169,3 +169,13 @@ and configure your `composer.json`, replacing `Incenteev\ParameterHandler\Script
     }
 }
 ```
+
+## Word of caution
+
+[AsseticBundle](https://github.com/symfony/AsseticBundle) features a PHP directory loader
+to be able to parse Controllers. This directory loader superseeds it: if it tries to do the
+job of Assetic’s loader, it works correctly, but not the other way around. 
+
+Therefore, this bundle inserts itself before Assetic to ensure it is run before.
+A way to prevent this is to specify `type: directory` in the router import, but there is
+currently a bug around this method. See symfony/AsseticBundle#289 and symfony/symfony#11018.
