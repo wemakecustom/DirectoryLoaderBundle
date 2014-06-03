@@ -175,6 +175,29 @@ and configure your `composer.json`, replacing `Incenteev\ParameterHandler\Script
 You can see the final configuration tree here:
 https://github.com/wemakecustom/symfony-kickstart/tree/master/dist
 
+## Usage without Symfony Framework
+
+It is also possible to use this library without registering with Symfony.
+
+To do so, simply add the proper loader to your `LoaderResolver`.
+
+Example with routing:
+
+```php
+<?php
+    use Symfony\Component\Config\FileLocator;
+    use Symfony\Component\Config\Loader\LoaderResolver;
+    use WMC\DirectoryLoaderBundle\Loader\Routing\DirectoryFileLoader;
+
+    $locator = new FileLocator($this);
+    $resolver = new LoaderResolver(); // or load yours
+
+    $resolver->addLoader(new DirectoryFileLoader($locator));
+?>
+```
+
+Example with DI can be found above.
+
 ## Word of caution
 
 [AsseticBundle](https://github.com/symfony/AsseticBundle) features a PHP directory loader
@@ -184,3 +207,4 @@ job of Assetic’s loader, it works correctly, but not the other way around.
 Therefore, this bundle inserts itself before Assetic to ensure it is run before.
 A way to prevent this is to specify `type: directory` in the router import, but there is
 currently a bug around this method. See symfony/AsseticBundle#289 and symfony/symfony#11018.
+
