@@ -6,6 +6,8 @@ This works for your main configuration files and the router.
 
 See https://github.com/symfony/symfony-standard/issues/599
 
+Since https://github.com/symfony/symfony/pull/14700 has been merged (Symfony 2.8+), the directory loader is included by default in Symfony. The documentation is kept here however for reference purposes.
+
 ## Installation
 
 Add the following in your root composer.json file:
@@ -13,7 +15,7 @@ Add the following in your root composer.json file:
 ```json
 {
     "require": {
-        "wemakecustom/directory-loader-bundle": "~1.0@dev"
+        "wemakecustom/directory-loader-bundle": "^1.0"
     },
 }
 ```
@@ -143,8 +145,8 @@ and configure your `composer.json`, replacing `Incenteev\ParameterHandler\Script
 {
     "require": {
         # ...
-        "wemakecustom/directory-loader-bundle": "1.0.*@dev",
-        "wemakecustom/composer-script-utils": ">=0.3"
+        "wemakecustom/directory-loader-bundle": "^1.0",
+        "wemakecustom/composer-script-utils": "^0.3"
     },
     "scripts": {
         "post-install-cmd": [
