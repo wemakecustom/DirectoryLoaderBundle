@@ -8,6 +8,8 @@ See https://github.com/symfony/symfony-standard/issues/599
 
 Since https://github.com/symfony/symfony/pull/14700 has been merged (Symfony 2.8+), the directory loader is included by default in Symfony. The documentation is kept here however for reference purposes.
 
+Please refer to http://symfony.com/doc/current/cookbook/configuration/configuration_organization.html for further use-cases of the DirectoryLoader.
+
 ## Installation
 
 Add the following in your root composer.json file:
